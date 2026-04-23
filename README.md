@@ -26,7 +26,7 @@ A modern, dynamic personal portfolio website built with **Next.js**, **React**, 
 
 This portfolio is optimized and deployed on **Vercel**, the native hosting platform for Next.js applications, ensuring fast global delivery and seamless updates.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the local result.
+Open [https://portfolio-v2-chi-rosy.vercel.app/](https://portfolio-v2-chi-rosy.vercel.app/) with your browser to see the live result.
 
 
 ## Contact & Links
