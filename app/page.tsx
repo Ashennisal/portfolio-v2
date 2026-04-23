@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useChat } from 'ai/react';
 
 
 const projects = [
@@ -22,8 +21,7 @@ const projects = [
 export default function Home() {
   const [time, setTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
 
 
   useEffect(() => {
@@ -192,90 +190,9 @@ export default function Home() {
 
       </div>
 
-      {/* AI Chat Widget */}
-      <div className="fixed bottom-8 right-8 z-[60] flex flex-col items-end gap-4">
-        {isChatOpen && (
-          <div className="w-[320px] h-[450px] bg-[#1a2029]/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
-            {/* Header */}
-            <div className="p-4 border-b border-white/5 bg-accent/10 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-bold uppercase tracking-widest">Ashen AI</span>
-              </div>
-              <button onClick={() => setIsChatOpen(false)} className="text-gray-400 hover:text-white">✕</button>
-            </div>
 
-            {/* Updated Messages Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
-              {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`p-3 rounded-2xl text-xs max-w-[80%] ${msg.role === "user"
-                    ? "bg-accent text-black self-end"
-                    : "bg-white/5 text-gray-300 self-start"
-                    }`}
-                >
-                  {msg.content}
-                </div>
-              ))}
-            </div>
 
-            {/* Updated Input Area */}
-            <div className="p-4 border-t border-white/5">
-              <div className="relative">
-                <form onSubmit={handleSubmit} className="relative">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={handleInputChange}
-                    placeholder="Ask me about Ashen..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-accent/50 transition-all"
-                  />
-                  <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 text-accent font-bold text-xs p-2">
-                    SEND
-                  </button>
-                </form>
-                <button
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-accent font-bold text-xs p-2 hover:opacity-70"
-                >
-                  SEND
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* Merged AI Chat Toggle & Logo */}
-        <button
-          onClick={() => setIsChatOpen(!isChatOpen)}
-          className="relative group w-14 h-14 rounded-2xl transition-all duration-300 active:scale-95 shadow-2xl"
-        >
-          {/* The Purple Haze/Glow Effect */}
-          <div className="absolute -inset-2 bg-accent/40 rounded-full blur-xl group-hover:bg-accent/60 transition duration-500"></div>
-
-          {/* The Button Content */}
-          <div className="relative w-full h-full rounded-2xl border border-white/10 bg-[#1a2029] flex items-center justify-center overflow-hidden">
-            {isChatOpen ? (
-              <span className="text-accent font-bold text-2xl">×</span>
-            ) : (
-              /* Your actual logo icon */
-              <img
-                src="/icon.png"
-                alt="Ashen AI"
-                className="w-8 h-8 object-contain"
-              />
-            )}
-          </div>
-
-          {/* Small Notification Dot (Optional - looks very AI) */}
-          {!isChatOpen && (
-            <span className="absolute -top-1 -right-1 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
-            </span>
-          )}
-        </button>
-      </div>
 
     </main>
   );
