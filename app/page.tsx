@@ -94,7 +94,7 @@ export default function Home() {
 
         {/* 5. Dynamic Projects Loop */}
         <section className="md:col-span-2 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Recent Labs</span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Recent Projects</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-6">
             {projects.map((project, index) => (
               <a
@@ -155,15 +155,15 @@ export default function Home() {
         </section>
 
         {/* 7. The Brain Tile (Learning Path) */}
-        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 relative overflow-hidden group">
+        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-5 relative overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
           <div className="relative z-10">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Current Focus</span>
-            <h3 className="text-lg font-bold leading-tight">Fine-tuning Llama 3.1</h3>
-            <p className="text-[11px] text-gray-500 mt-2">Exploring LoRA adapters for specialized reasoning.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">Current Focus</span>
+            <h3 className="text-base font-bold leading-tight">Fine-tuning Llama 3.1</h3>
+            <p className="text-[11px] text-gray-500 mt-1">Exploring LoRA adapters for specialized reasoning.</p>
 
-            <div className="mt-6 space-y-2">
+            <div className="mt-3 space-y-1">
               <div className="flex justify-between text-[9px] uppercase tracking-tighter">
                 <span className="text-gray-400">Optimization</span>
                 <span className="text-accent">75%</span>
@@ -173,6 +173,25 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* CV / Resume Download Tile */}
+        <section className="mt-4 col-span-1 md:col-span-2 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-accent/40 transition-all cursor-pointer">
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">Resume</span>
+            <h3 className="text-xl font-bold mb-4">Curriculum Vitae</h3>
+          </div>
+
+          <a
+            href="/Ashen_Nisal_CV.pdf"
+            download
+            className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-6 py-4 hover:bg-accent hover:text-black transition-all group/btn"
+          >
+            <span className="text-sm font-bold uppercase tracking-widest">Download PDF</span>
+            <svg className="w-5 h-5 group-hover/btn:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
         </section>
 
       </div>
