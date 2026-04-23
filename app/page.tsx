@@ -7,20 +7,22 @@ const projects = [
     title: "Real Estate App",
     description: "Property management system with Java/Spring Boot.",
     tech: ["Java", "MySQL"],
-    link: "https://github.com/Ashennisal/real-estate"
+    link: "https://github.com/Ashennisal/Real-State-Agent-Finder-and-Appointment-System-main"
   },
   {
     title: "Wedding Reservation",
     description: "Full-stack booking flow with secure payment integration.",
     tech: ["Spring Boot", "JS"],
-    link: "https://github.com/Ashennisal/wedding-reservation"
+    link: "https://github.com/Ashennisal/wedding_reservation"
   }
 ];
 
 export default function Home() {
   const [time, setTime] = useState(new Date());
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -53,7 +55,7 @@ export default function Home() {
         <section className="md:col-span-1 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4">
           <img
             src="/images/your-photo.jpg"
-            className="w-full h-full object-cover animate-morph border-2 border-[#e8a857]/30"
+            className="w-full h-full object-cover animate-morph border-2 border-accent/30"
             alt="Ashen Nisal"
           />
         </section>
@@ -62,7 +64,7 @@ export default function Home() {
         <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6">
           <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-3 block">Neural Stack</span>
           <div className="flex flex-wrap gap-2">
-            {['Java', 'Spring', 'Next.js', 'Python'].map(s => (
+            {['Java', 'Spring Boot', 'Next.js', 'Python', 'HTML', 'CSS', 'React', 'MySQL', 'MongoDB', 'C', 'Git'].map(s => (
               <span key={s} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium">{s}</span>
             ))}
           </div>
@@ -74,7 +76,6 @@ export default function Home() {
           <h3 className="text-xl font-bold">Legal Analyzer</h3>
           <p className="text-sm text-gray-400 mt-2">Automated document parsing using LLM structured outputs.</p>
 
-          {/* Add a subtle decorative element */}
           <div className="mt-8 h-1 w-full bg-accent/10 rounded-full overflow-hidden">
             <div className="h-full bg-accent w-2/3 animate-pulse"></div>
           </div>
@@ -92,12 +93,16 @@ export default function Home() {
             {projects.map((project, index) => (
               <a
                 key={index}
-                href={"project.link"}
+                href={project.link}
                 target="_blank"
-                className="group/item flex flex-col justify-between border-l border-white/5 pl-4 hover:border-accent transition-colors"
+                rel="noopener noreferrer"
+                className="group/item flex flex-col justify-between border-l border-white/5 pl-4 hover:border-accent transition-colors cursor-pointer"
               >
                 <div>
-                  <h3 className="font-bold group-hover/item:text-accent transition-colors">{project.title}</h3>
+                  <h3 className="font-bold group-hover/item:text-accent transition-colors flex items-center gap-2">
+                    {project.title}
+                    <span className="text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity">↗</span>
+                  </h3>
                   <p className="text-[11px] text-gray-500 mt-1 line-clamp-1">{project.description}</p>
                 </div>
                 <div className="flex gap-2 mt-2">
@@ -113,7 +118,6 @@ export default function Home() {
         {/* 6. Live Status & Socials */}
         <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-accent/40 transition-all">
           <div className="space-y-4">
-            {/* Status Indicator */}
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -124,10 +128,9 @@ export default function Home() {
               </span>
             </div>
 
-            {/* Live Clock */}
             <div>
               <div className="text-3xl font-mono tracking-tighter text-accent">
-                {colomboTime}
+                {mounted ? colomboTime : "--:--:--"}
               </div>
               <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">
                 Colombo, Sri Lanka
@@ -135,14 +138,34 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mini Social Links */}
           <div className="flex gap-4 mt-4">
-            <a href="https://github.com/Ashennisal" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+            <a href="https://github.com/Ashennisal" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
               <span className="text-xs font-bold">Github</span>
             </a>
-            <a href="https://www.linkedin.com/in/ashen-nisal-435295317" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+            <a href="https://www.linkedin.com/in/ashen-nisal-435295317" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
               <span className="text-xs font-bold">LinkedIn</span>
             </a>
+          </div>
+        </section>
+
+        {/* 7. The Brain Tile (Learning Path) */}
+        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          <div className="relative z-10">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Current Focus</span>
+            <h3 className="text-lg font-bold leading-tight">Fine-tuning Llama 3.1</h3>
+            <p className="text-[11px] text-gray-500 mt-2">Exploring LoRA adapters for specialized reasoning.</p>
+
+            <div className="mt-6 space-y-2">
+              <div className="flex justify-between text-[9px] uppercase tracking-tighter">
+                <span className="text-gray-400">Optimization</span>
+                <span className="text-accent">75%</span>
+              </div>
+              <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                <div className="h-full bg-accent w-[75%] animate-pulse"></div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -151,10 +174,7 @@ export default function Home() {
       {/* Floating Logo Stamp */}
       <div className="fixed bottom-8 right-8 z-50">
         <div className="relative group">
-          {/* The Purple Haze/Glow Effect */}
           <div className="absolute -inset-2 bg-accent/40 rounded-full blur-xl group-hover:bg-accent/60 transition duration-500"></div>
-
-          {/* The Icon */}
           <img
             src="/icon.png"
             alt="Logo"
