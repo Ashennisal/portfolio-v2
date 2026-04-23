@@ -1,19 +1,40 @@
-export default function Home() {
+"use client";
 
-  const projects = [
-    {
-      title: "Real Estate App",
-      description: "Property management system with Java/Spring Boot.",
-      tech: ["Java", "MySQL"],
-      link: "https://github.com/Ashennisal/real-estate"
-    },
-    {
-      title: "Wedding Reservation",
-      description: "Full-stack booking flow with secure payment integration.",
-      tech: ["Spring Boot", "JS"],
-      link: "https://github.com/Ashennisal/wedding-reservation"
-    }
-  ];
+import React, { useState, useEffect } from "react";
+
+const projects = [
+  {
+    title: "Real Estate App",
+    description: "Property management system with Java/Spring Boot.",
+    tech: ["Java", "MySQL"],
+    link: "https://github.com/Ashennisal/real-estate"
+  },
+  {
+    title: "Wedding Reservation",
+    description: "Full-stack booking flow with secure payment integration.",
+    tech: ["Spring Boot", "JS"],
+    link: "https://github.com/Ashennisal/wedding-reservation"
+  }
+];
+
+export default function Home() {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const colomboTime = time.toLocaleTimeString("en-US", {
+    timeZone: "Asia/Colombo",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
 
   return (
     <main className="min-h-screen p-6 md:p-12 max-w-[1200px] mx-auto">
@@ -71,7 +92,7 @@ export default function Home() {
             {projects.map((project, index) => (
               <a
                 key={index}
-                href={project.link}
+                href={"project.link"}
                 target="_blank"
                 className="group/item flex flex-col justify-between border-l border-white/5 pl-4 hover:border-accent transition-colors"
               >
@@ -89,10 +110,40 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 6. Contact */}
-        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 flex flex-col justify-center items-center text-center">
-          <a href="https://www.linkedin.com/in/ashen-nisal-435295317" className="text-sm font-bold hover:text-[#e8a857] transition-colors">LinkedIn ↗</a>
-          <a href="https://github.com/Ashennisal" className="text-sm font-bold hover:text-[#e8a857] mt-2 transition-colors">GitHub ↗</a>
+        {/* 6. Live Status & Socials */}
+        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-accent/40 transition-all">
+          <div className="space-y-4">
+            {/* Status Indicator */}
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium">
+                Available for Internships
+              </span>
+            </div>
+
+            {/* Live Clock */}
+            <div>
+              <div className="text-3xl font-mono tracking-tighter text-accent">
+                {colomboTime}
+              </div>
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">
+                Colombo, Sri Lanka
+              </p>
+            </div>
+          </div>
+
+          {/* Mini Social Links */}
+          <div className="flex gap-4 mt-4">
+            <a href="https://github.com/Ashennisal" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+              <span className="text-xs font-bold">Github</span>
+            </a>
+            <a href="https://www.linkedin.com/in/ashen-nisal-435295317" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+              <span className="text-xs font-bold">LinkedIn</span>
+            </a>
+          </div>
         </section>
 
       </div>
