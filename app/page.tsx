@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-6 md:p-12 max-w-[1200px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[180px]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[180px] auto-rows-min">
 
         {/* 1. Identity Tile */}
         <section className="md:col-span-2 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-10 flex flex-col justify-center">
@@ -52,7 +52,7 @@ export default function Home() {
         </section>
 
         {/* 2. Morphing Photo Tile */}
-        <section className="md:col-span-1 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4">
+        <section className="md:col-span-1 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4 h-[300px] md:h-full">
           <img
             src="/images/your-photo.jpg"
             className="w-full h-full object-cover animate-morph border-2 border-accent/30"
@@ -71,25 +71,28 @@ export default function Home() {
         </section>
 
         {/* 4. AI Project (The Spotlight) */}
-        <section className="md:col-span-1 md:row-span-2 bg-gradient-to-br from-[#1a2029] to-indigo-900/30 border border-accent/20 rounded-[2rem] p-8 group relative overflow-hidden hover:border-accent/50 transition-all duration-500 shimmer-mask">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">AI Focus</span>
-          <h3 className="text-xl font-bold">Legal Analyzer</h3>
-          <p className="text-sm text-gray-400 mt-2">Automated document parsing using LLM structured outputs.</p>
-
-          <div className="mt-8 h-1 w-full bg-accent/10 rounded-full overflow-hidden">
-            <div className="h-full bg-accent w-2/3 animate-pulse"></div>
+        <section className="md:col-span-1 md:row-span-2 bg-gradient-to-br from-[#1a2029] to-indigo-900/30 border border-accent/20 rounded-[2rem] p-8 group relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">AI Focus</span>
+            <h3 className="text-xl font-bold">Legal Analyzer</h3>
+            <p className="text-sm text-gray-400 mt-2">Automated document parsing using LLM structured outputs.</p>
           </div>
 
-          <div className="absolute bottom-6 left-8 flex items-center gap-2 text-accent font-bold text-xs">
-            <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-            LIVE SOON
+          <div className="mt-auto pt-8"> {/* This pushes the status to the bottom naturally */}
+            <div className="h-1 w-full bg-accent/10 rounded-full overflow-hidden mb-4">
+              <div className="h-full bg-accent w-2/3 animate-pulse"></div>
+            </div>
+            <div className="flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-widest">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+              Live Soon
+            </div>
           </div>
         </section>
 
         {/* 5. Dynamic Projects Loop */}
         <section className="md:col-span-2 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8">
           <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Recent Labs</span>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-6">
             {projects.map((project, index) => (
               <a
                 key={index}
