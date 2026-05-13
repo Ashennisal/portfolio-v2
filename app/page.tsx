@@ -1,35 +1,31 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-
-
-const projects = [
-  {
-    title: "Real Estate App",
-    description: "Property management system with Java/Spring Boot.",
-    tech: ["Java", "MySQL"],
-    link: "https://github.com/Ashennisal/Real-State-Agent-Finder-and-Appointment-System-main"
-  },
-  {
-    title: "Wedding Reservation",
-    description: "Full-stack booking flow with secure payment integration.",
-    tech: ["Spring Boot", "JS"],
-    link: "https://github.com/Ashennisal/wedding_reservation"
-  }
-];
+import Image from "next/image";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  allProjectTags,
+  cvHighlights,
+  cvPdfPath,
+  featuredProject,
+  projects,
+  skillGroups,
+} from "./data/portfolio";
 
 export default function Home() {
   const [time, setTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
+  const [tagFilter, setTagFilter] = useState<string>("All");
 
+  const tags = useMemo(() => ["All", ...allProjectTags(projects)], []);
 
+  const filteredProjects = useMemo(() => {
+    if (tagFilter === "All") return projects;
+    return projects.filter((p) => p.tags.includes(tagFilter));
+  }, [tagFilter]);
 
   useEffect(() => {
-    setMounted(true);
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
+    queueMicrotask(() => setMounted(true));
+    const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -44,175 +40,277 @@ export default function Home() {
   return (
     <main className="min-h-screen p-6 md:p-12 max-w-[1200px] mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[180px] auto-rows-min">
-
-        {/* 1. Identity Tile */}
+        {/* 1. Identity */}
         <section className="md:col-span-2 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-10 flex flex-col justify-center">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4">Software Engineer</span>
-          <h1 className="text-5xl font-serif font-bold mb-4"> Ashen <span className="italic text-accent">Nisal</span></h1>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4">
+            Software Engineer
+          </span>
+          <h1 className="text-5xl font-serif font-bold mb-4">
+            Ashen <span className="italic text-accent">Nisal</span>
+          </h1>
           <p className="text-gray-400 text-lg leading-relaxed">
-            AI Specialization Student at SLIIT. I bridge the gap between heavy Java backends and modern AI-driven interfaces.
+            AI Specialization Student at SLIIT. I bridge the gap between heavy Java backends and
+            modern AI-driven interfaces.
           </p>
         </section>
 
-        {/* 2. Morphing Photo Tile */}
-        <section className="md:col-span-1 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4 h-[300px] md:h-full">
-          <img
+        {/* 2. Photo */}
+        <section className="md:col-span-1 md:row-span-2 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4 h-[300px] md:h-full relative">
+          <Image
             src="/images/your-photo.jpg"
-            className="w-full h-full object-cover animate-morph border-2 border-accent/30"
             alt="Ashen Nisal"
+            fill
+            className="object-cover animate-morph border-2 border-accent/30"
+            sizes="(max-width: 768px) 100vw, 25vw"
+            priority
           />
         </section>
 
-        {/* 3. Skills Tile */}
-        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-3 block">Neural Stack</span>
-          <div className="flex flex-wrap gap-2">
-            {['Java', 'Spring Boot', 'Next.js', 'Python', 'HTML', 'CSS', 'React', 'MySQL', 'MongoDB', 'C', 'Git'].map(s => (
-              <span key={s} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium">{s}</span>
-            ))}
-          </div>
-        </section>
-
-        {/* 4. AI Project (The Spotlight) */}
-        <section className="md:col-span-1 md:row-span-2 bg-gradient-to-br from-[#1a2029] to-indigo-900/30 border border-accent/20 rounded-[2rem] p-8 group relative overflow-hidden flex flex-col justify-between">
-          <div>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">AI Focus</span>
-            <h3 className="text-xl font-bold">Legal Analyzer</h3>
-            <p className="text-sm text-gray-400 mt-2">Automated document parsing using LLM structured outputs.</p>
-          </div>
-
-          <div className="mt-auto pt-8"> {/* This pushes the status to the bottom naturally */}
-            <div className="h-1 w-full bg-accent/10 rounded-full overflow-hidden mb-4">
-              <div className="h-full bg-accent w-2/3 animate-pulse"></div>
-            </div>
-            <div className="flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-widest">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              Live Soon
-            </div>
-          </div>
-        </section>
-
-        {/* 5. Dynamic Projects Loop */}
-        <section className="md:col-span-2 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4 block">Recent Projects</span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-6">
-            {projects.map((project, index) => (
-              <a
-                key={index}
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/item flex flex-col justify-between border-l border-white/5 pl-4 hover:border-accent transition-colors cursor-pointer"
-              >
-                <div>
-                  <h3 className="font-bold group-hover/item:text-accent transition-colors flex items-center gap-2">
-                    {project.title}
-                    <span className="text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity">↗</span>
-                  </h3>
-                  <p className="text-[11px] text-gray-500 mt-1 line-clamp-1">{project.description}</p>
-                </div>
-                <div className="flex gap-2 mt-2">
-                  {project.tech.map(t => (
-                    <span key={t} className="text-[9px] text-gray-400 bg-white/5 px-2 py-0.5 rounded-md">{t}</span>
+        {/* 3. Skills */}
+        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 flex flex-col gap-3 overflow-hidden">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold shrink-0">
+            Stack
+          </span>
+          <div className="space-y-2.5 min-h-0 overflow-y-auto pr-1">
+            {skillGroups.map((g) => (
+              <div key={g.label}>
+                <p className="text-[9px] uppercase tracking-wider text-gray-500 mb-1">{g.label}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {g.items.map((s) => (
+                    <span
+                      key={s}
+                      className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white/[0.04] border border-white/10 text-gray-200 hover:border-accent/40 hover:bg-accent/5 transition-colors"
+                    >
+                      {s}
+                    </span>
                   ))}
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* 6. Live Status & Socials */}
+        {/* 4. Featured case study */}
+        <section className="md:col-span-1 md:row-span-2 bg-gradient-to-br from-[#1a2029] to-indigo-900/30 border border-accent/20 rounded-[2rem] p-8 relative overflow-hidden flex flex-col gap-4">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+            {featuredProject.eyebrow}
+          </span>
+          <h3 className="text-xl font-bold">{featuredProject.title}</h3>
+          <p className="text-sm text-gray-400">{featuredProject.summary}</p>
+          <dl className="space-y-2.5 text-[11px] leading-snug">
+            <div>
+              <dt className="text-gray-500 uppercase tracking-wider text-[9px] mb-0.5">Problem</dt>
+              <dd className="text-gray-300">{featuredProject.problem}</dd>
+            </div>
+            <div>
+              <dt className="text-gray-500 uppercase tracking-wider text-[9px] mb-0.5">Approach</dt>
+              <dd className="text-gray-300">{featuredProject.approach}</dd>
+            </div>
+            <div>
+              <dt className="text-gray-500 uppercase tracking-wider text-[9px] mb-0.5">Outcome</dt>
+              <dd className="text-gray-300">{featuredProject.outcome}</dd>
+            </div>
+          </dl>
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {featuredProject.tech.map((t) => (
+              <span
+                key={t}
+                className="text-[10px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-gray-300"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2 mt-auto pt-2">
+            {featuredProject.github ? (
+              <a
+                href={featuredProject.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-lg bg-white/10 border border-white/15 hover:border-accent hover:text-accent transition-colors"
+              >
+                GitHub ↗
+              </a>
+            ) : null}
+            {featuredProject.demo ? (
+              <a
+                href={featuredProject.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-lg bg-accent/20 border border-accent/40 text-accent hover:bg-accent hover:text-black transition-colors"
+              >
+                Live demo ↗
+              </a>
+            ) : null}
+          </div>
+        </section>
+
+        {/* 5. Projects + filter */}
+        <section className="md:col-span-3 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-5">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold block">
+              Recent projects
+            </span>
+            <div
+              className="flex flex-wrap gap-1.5"
+              role="tablist"
+              aria-label="Filter projects by tag"
+            >
+              {tags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  role="tab"
+                  aria-selected={tagFilter === tag}
+                  onClick={() => setTagFilter(tag)}
+                  className={`text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-md border transition-colors ${
+                    tagFilter === tag
+                      ? "border-accent bg-accent/15 text-accent"
+                      : "border-white/10 bg-white/[0.03] text-gray-400 hover:border-white/25"
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+            {filteredProjects.map((project) => (
+              <article
+                key={project.title}
+                className="flex flex-col justify-between border-l border-white/5 pl-4 hover:border-accent/60 transition-colors"
+              >
+                <div>
+                  <h3 className="font-bold text-base">{project.title}</h3>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-500 mt-1">{project.role}</p>
+                  <p className="text-[11px] text-gray-400 mt-2 leading-relaxed">{project.description}</p>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {project.tech.map((t) => (
+                    <span key={t} className="text-[9px] text-gray-400 bg-white/5 px-2 py-0.5 rounded-md">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-3 mt-3">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-accent hover:underline"
+                  >
+                    Repository ↗
+                  </a>
+                  {project.demo ? (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-bold text-gray-400 hover:text-white"
+                    >
+                      Demo ↗
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* 6. Status & socials */}
         <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-accent/40 transition-all">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium">
-                Available for Internships
+                Available for internships
               </span>
             </div>
-
             <div>
-              <div className="text-3xl font-mono tracking-tighter text-accent">
+              <div className="text-3xl font-mono tracking-tighter text-accent" suppressHydrationWarning>
                 {mounted ? colomboTime : "--:--:--"}
               </div>
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">
-                Colombo, Sri Lanka
-              </p>
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Colombo, Sri Lanka</p>
             </div>
           </div>
-
           <div className="flex gap-4 mt-4">
-            <a href="https://github.com/Ashennisal" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-              <span className="text-xs font-bold">Github</span>
+            <a
+              href="https://github.com/Ashennisal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <span className="text-xs font-bold">GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/ashen-nisal-435295317" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+            <a
+              href="https://www.linkedin.com/in/ashen-nisal-435295317"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               <span className="text-xs font-bold">LinkedIn</span>
             </a>
           </div>
         </section>
 
-        {/* 7. The Brain Tile (Learning Path) */}
-        <section className="md:col-span-1 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-5 relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-          <div className="relative z-10">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">Current Focus</span>
-            <h3 className="text-base font-bold leading-tight">Fine-tuning Llama 3.1</h3>
-            <p className="text-[11px] text-gray-500 mt-1">Exploring LoRA adapters for specialized reasoning.</p>
-
-            <div className="mt-3 space-y-1">
-              <div className="flex justify-between text-[9px] uppercase tracking-tighter">
-                <span className="text-gray-400">Optimization</span>
-                <span className="text-accent">75%</span>
-              </div>
-              <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full bg-accent w-[75%] animate-pulse"></div>
-              </div>
+        {/* 7. CV */}
+        <section className="mt-4 md:col-span-4 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col md:flex-row md:items-stretch gap-8 group hover:border-accent/40 transition-all">
+          <div className="flex-1 flex flex-col justify-between min-w-0">
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">
+                Resume
+              </span>
+              <h3 className="text-xl font-bold mb-4">Curriculum vitae</h3>
+              <ul className="space-y-2">
+                {cvHighlights.map((line) => (
+                  <li key={line} className="text-[12px] text-gray-300 leading-snug flex gap-2">
+                    <span className="text-accent shrink-0">▸</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
-
-        {/* CV / Resume Download Tile */}
-        <section className="mt-4 col-span-1 md:col-span-2 md:row-span-1 bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-accent/40 transition-all cursor-pointer">
-          <div>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">Resume</span>
-            <h3 className="text-xl font-bold mb-4">Curriculum Vitae</h3>
+          <div className="flex flex-col justify-end md:w-[280px] shrink-0">
+            <a
+              href={cvPdfPath}
+              download
+              className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-6 py-4 hover:bg-accent hover:text-black transition-all group/btn"
+            >
+              <span className="text-sm font-bold uppercase tracking-widest">Download PDF</span>
+              <svg
+                className="w-5 h-5 group-hover/btn:translate-y-1 transition-transform shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+            </a>
           </div>
-
-          <a
-            href="/Ashen_Nisal_CV.pdf"
-            download
-            className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-6 py-4 hover:bg-accent hover:text-black transition-all group/btn"
-          >
-            <span className="text-sm font-bold uppercase tracking-widest">Download PDF</span>
-            <svg className="w-5 h-5 group-hover/btn:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </a>
         </section>
-
       </div>
 
-      {/* Floating Logo Stamp */}
       <div className="fixed bottom-8 right-8 z-50">
         <div className="relative group">
-          <div className="absolute -inset-2 bg-accent/40 rounded-full blur-xl group-hover:bg-accent/60 transition duration-500"></div>
-          <img
+          <div className="absolute -inset-2 bg-accent/40 rounded-full blur-xl group-hover:bg-accent/60 transition duration-500" />
+          <Image
             src="/icon.png"
-            alt="Logo"
-            className="relative w-12 h-12 rounded-xl border border-white/10 bg-[#1a2029] p-2"
+            alt=""
+            width={48}
+            height={48}
+            className="relative rounded-xl border border-white/10 bg-[#1a2029] p-2"
           />
         </div>
-
       </div>
-
-
-
-
-
     </main>
   );
 }
