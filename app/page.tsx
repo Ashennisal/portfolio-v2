@@ -39,44 +39,44 @@ export default function Home() {
   const card = "bg-[#1a2029]/60 backdrop-blur-xl border border-white/10 rounded-[2rem]";
 
   return (
-    <main className="min-h-screen p-6 md:p-14 max-w-[1440px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 md:auto-rows-[minmax(200px,auto)] auto-rows-min">
-        {/* Identity — wider */}
+    <main className="min-h-screen p-6 md:p-10 max-w-[1280px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-min md:items-start">
+        {/* Identity */}
         <section
-          className={`md:col-span-7 md:row-span-2 ${card} rounded-[2.5rem] p-10 md:p-12 flex flex-col justify-center`}
+          className={`md:col-span-7 md:row-span-1 ${card} rounded-[2.5rem] p-8 md:p-9 flex flex-col justify-start self-start`}
         >
-          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-4">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-3">
             Software Engineer
           </span>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-3">
             Ashen <span className="italic text-accent">Nisal</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl">
+          <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
             AI Specialization Student at SLIIT. I bridge the gap between heavy Java backends and
             modern AI-driven interfaces.
           </p>
         </section>
 
-        {/* Photo */}
+        {/* Photo — height from aspect ratio, not stretched grid rows */}
         <section
-          className={`md:col-span-5 md:row-span-2 ${card} rounded-[2.5rem] overflow-hidden flex items-center justify-center p-4 h-[300px] md:min-h-[360px] md:h-full relative`}
+          className={`md:col-span-5 md:row-span-1 ${card} rounded-[2.5rem] overflow-hidden relative w-full aspect-[4/5] max-h-[320px] md:max-h-[340px] md:justify-self-end md:max-w-[280px] self-start`}
         >
           <Image
             src="/images/your-photo.jpg"
             alt="Ashen Nisal"
             fill
             className="object-cover animate-morph border-2 border-accent/30"
-            sizes="(max-width: 768px) 100vw, 42vw"
+            sizes="(max-width: 768px) 100vw, 280px"
             priority
           />
         </section>
 
         {/* Skills — full width strip */}
-        <section className={`md:col-span-12 md:row-span-1 ${card} p-8 md:p-10 flex flex-col gap-4`}>
+        <section className={`md:col-span-12 md:row-span-1 ${card} p-6 md:p-7 flex flex-col gap-3`}>
           <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold shrink-0">
             Stack
           </span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {skillGroups.map((g) => (
               <div key={g.label}>
                 <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">{g.label}</p>
@@ -96,8 +96,8 @@ export default function Home() {
         </section>
 
         {/* Projects */}
-        <section className={`md:col-span-8 md:row-span-1 ${card} p-8 md:p-10`}>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+        <section className={`md:col-span-8 md:row-span-1 ${card} p-6 md:p-7 self-start`}>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
             <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold block">
               Recent projects
             </span>
@@ -124,25 +124,25 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
             {filteredProjects.map((project) => (
               <article
                 key={project.title}
-                className="flex flex-col justify-between border-l-2 border-white/10 pl-5 md:pl-6 hover:border-accent/60 transition-colors min-h-[140px]"
+                className="flex flex-col border-l-2 border-white/10 pl-4 md:pl-5 hover:border-accent/60 transition-colors"
               >
                 <div>
-                  <h3 className="font-bold text-lg md:text-xl">{project.title}</h3>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-500 mt-1.5">{project.role}</p>
-                  <p className="text-sm text-gray-400 mt-3 leading-relaxed">{project.description}</p>
+                  <h3 className="font-bold text-base md:text-lg">{project.title}</h3>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-500 mt-1">{project.role}</p>
+                  <p className="text-sm text-gray-400 mt-2 leading-relaxed">{project.description}</p>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap gap-1.5 mt-3">
                   {project.tech.map((t) => (
                     <span key={t} className="text-[10px] text-gray-400 bg-white/5 px-2.5 py-1 rounded-md">
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-4 mt-4">
+                <div className="flex flex-wrap gap-3 mt-3">
                   {project.github ? (
                     <a
                       href={project.github}
@@ -171,9 +171,9 @@ export default function Home() {
 
         {/* Status & socials */}
         <section
-          className={`md:col-span-4 md:row-span-1 ${card} p-8 md:p-10 flex flex-col justify-between group hover:border-accent/40 transition-all min-h-[280px]`}
+          className={`md:col-span-4 md:row-span-1 ${card} p-6 md:p-7 flex flex-col gap-5 self-start group hover:border-accent/40 transition-all`}
         >
-          <div className="space-y-5">
+          <div className="space-y-3">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -184,13 +184,13 @@ export default function Home() {
               </span>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-mono tracking-tighter text-accent" suppressHydrationWarning>
+              <div className="text-2xl md:text-3xl font-mono tracking-tighter text-accent" suppressHydrationWarning>
                 {mounted ? colomboTime : "--:--:--"}
               </div>
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-2">Colombo, Sri Lanka</p>
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Colombo, Sri Lanka</p>
             </div>
           </div>
-          <div className="flex gap-5 mt-6">
+          <div className="flex gap-4 pt-1">
             <a
               href="https://github.com/Ashennisal"
               target="_blank"
@@ -212,17 +212,17 @@ export default function Home() {
 
         {/* CV */}
         <section
-          className={`mt-1 md:col-span-12 md:row-span-1 ${card} p-8 md:p-12 flex flex-col lg:flex-row lg:items-stretch gap-10 group hover:border-accent/40 transition-all`}
+          className={`mt-1 md:col-span-12 md:row-span-1 ${card} p-6 md:p-8 flex flex-col lg:flex-row lg:items-start gap-6 md:gap-8 self-start group hover:border-accent/40 transition-all`}
         >
-          <div className="flex-1 flex flex-col justify-between min-w-0">
+          <div className="flex-1 min-w-0">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2 block">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-1.5 block">
                 Resume
               </span>
-              <h3 className="text-xl md:text-2xl font-bold mb-5">Curriculum vitae</h3>
-              <ul className="space-y-3 max-w-3xl">
+              <h3 className="text-lg md:text-xl font-bold mb-3">Curriculum vitae</h3>
+              <ul className="space-y-2 max-w-3xl">
                 {cvHighlights.map((line) => (
-                  <li key={line} className="text-sm md:text-base text-gray-300 leading-relaxed flex gap-3">
+                  <li key={line} className="text-sm text-gray-300 leading-snug flex gap-2">
                     <span className="text-accent shrink-0">▸</span>
                     <span>{line}</span>
                   </li>
@@ -230,11 +230,11 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="flex flex-col justify-end lg:w-[320px] shrink-0">
+          <div className="flex flex-col lg:justify-start lg:shrink-0 lg:w-auto">
             <a
               href={cvPdfPath}
               download
-              className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-6 py-5 hover:bg-accent hover:text-black transition-all group/btn"
+              className="flex items-center justify-between gap-4 bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 hover:bg-accent hover:text-black transition-all group/btn lg:min-w-[220px]"
             >
               <span className="text-sm font-bold uppercase tracking-widest">Download PDF</span>
               <svg
