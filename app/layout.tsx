@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ashen Nisal | AI Specialist",
+  title: "Ashen Nisal",
   description: "Portfolio of an AI-specialized Software Engineer",
   icons: {
     icon: [

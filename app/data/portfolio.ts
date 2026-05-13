@@ -2,9 +2,8 @@
 
 export const skillGroups = [
   { label: "Backend & languages", items: ["Java", "Spring Boot", "Python", "C"] },
-  { label: "Web & UI", items: ["Next.js", "React", "HTML", "CSS"] },
+  { label: "Web & UI", items: ["Next.js", "React", "HTML", "CSS","JavaScript"] },
   { label: "Data & ops", items: ["MySQL", "MongoDB", "Git"] },
-  { label: "AI & tooling", items: ["LLM APIs", "Structured outputs", "LoRA / fine-tuning"] },
 ] as const;
 
 export type Project = {
@@ -13,11 +12,19 @@ export type Project = {
   role: string;
   tech: readonly string[];
   tags: readonly string[];
-  github: string;
+  github?: string;
   demo?: string;
 };
 
 export const projects: readonly Project[] = [
+  {
+    title: "AI Legal Analyzer and Risk Predictor",
+    description: "Automated document parsing and risk prediction.",
+    role: "Personal / research",
+    tech: ["Python", "FastAPIs", "React"],
+    tags: ["AI", "Python"],
+    github:"https://github.com/Ashennisal/AI_Legal_Analyzer_and_Risk_Predictor"
+  },
   {
     title: "Real Estate App",
     description: "Property management system with Java/Spring Boot.",
@@ -35,18 +42,6 @@ export const projects: readonly Project[] = [
     github: "https://github.com/Ashennisal/wedding_reservation",
   },
 ];
-
-export const featuredProject = {
-  eyebrow: "Case study",
-  title: "Legal Analyzer",
-  summary: "Automated document parsing using LLM structured outputs.",
-  problem: "Manual review of dense legal-style text does not scale and is easy to misread.",
-  approach: "Pipeline that sends documents to an LLM with a strict JSON schema so downstream code can trust the shape of extracted fields.",
-  outcome: "Repeatable parsing runs with reviewable structured results instead of ad hoc copy-paste.",
-  tech: ["Python", "LLM APIs", "Structured outputs"] as const,
-  github: null as string | null,
-  demo: null as string | null,
-};
 
 /** Short bullets mirrored from your CV — edit when you update the PDF. */
 export const cvHighlights = [
